@@ -8,7 +8,19 @@
 
 Populate the `.env` file with your API key. You can find the example in `.env.example`. Make sure to rename it to `.env` after copying.
 
-First, run the development server:
+Firstly, install the dependencies:
+
+```bash
+pnpm install
+# or
+npm install
+# or
+yarn install
+# or
+bun install
+```
+
+Then, run the development server:
 
 ```bash
 pnpm dev
