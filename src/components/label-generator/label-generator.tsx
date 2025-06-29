@@ -4,9 +4,7 @@ import { GenerationForm } from "../generation-form";
 import { PrintableLabel } from "../printable-label";
 
 export function LabelGenerator() {
-	const [labelImgUrl, setLabelImgUrl] = useState<string | null>(
-		"https://easypost-files.s3.us-west-2.amazonaws.com/files/postage_label/20250629/e8a54a99a5e63545b5a34533b7a678ee69.png",
-	);
+	const [labelImgUrl, setLabelImgUrl] = useState<string | undefined>();
 
 	const handleGenerate = (url: string) => {
 		setLabelImgUrl(url);
