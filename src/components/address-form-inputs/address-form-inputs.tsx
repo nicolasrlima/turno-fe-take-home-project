@@ -90,6 +90,7 @@ export function AddressFormInputs({
 										<SelectItem value="AK">Alaska</SelectItem>
 										<SelectItem value="AZ">Arizona</SelectItem>
 										<SelectItem value="AR">Arkansas</SelectItem>
+										<SelectItem value="CA">California</SelectItem>
 										{/* Add more states as needed */}
 									</SelectContent>
 								</Select>

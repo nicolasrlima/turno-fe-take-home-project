@@ -8,28 +8,65 @@ import {
 import { Button } from "../ui/button";
 import { Form } from "../ui/form";
 import { ParcelFormInputs } from "../parcel-form-inputs";
+import { generateShippingLabelUrl } from "@/server/shipments/actions";
 
 export function GenerationForm() {
-	const form = useForm<GenerationFormSchema>();
+	const form = useForm<GenerationFormSchema>({
+		defaultValues: {
+			from_address: {
+				name: "EasyPost",
+				street1: "417 Montgomery Street",
+				street2: "5th Floor",
+				city: "San Francisco",
+				state: "CA",
+				zip: "94104",
+				country: "US",
+				phone: "4153334445",
+				email: "support@easypost.com",
+			},
+			to_address: {
+				name: "Dr. Steve Brule",
+				street1: "179 N Harbor Dr",
+				city: "Redondo Beach",
+				state: "CA",
+				zip: "90277",
+				country: "US",
+				phone: "8573875756",
+				email: "dr_steve_brule@gmail.com",
+			},
+			parcel: {
+				length: "20.2",
+				width: "10.9",
+				height: "5",
+				weight: "65.9",
+			},
+		},
+	});
+
+	const onSubmit = async (values: GenerationFormSchema) => {
+		const labelUrl = await generateShippingLabelUrl(values);
+	};
 
 	return (
 		<Form {...form}>
-			<h2 className="text-2xl font-semibold">Generate Shipping Label</h2>
-			<div className="flex flex-col gap-2 w-full">
-				<h3 className="text-lg font-medium">From Address</h3>
-				<AddressFormInputs
-					addressPrefix={addressPrefixes.Enum.fromAddress}
-					control={form.control}
-				/>
-				<h3 className="text-lg font-medium mt-6">To Address</h3>
-				<AddressFormInputs
-					addressPrefix={addressPrefixes.Enum.toAddress}
-					control={form.control}
-				/>
-				<h3 className="text-lg font-medium mt-6">Parcel Details</h3>
-				<ParcelFormInputs control={form.control} />
-			</div>
-			<Button type="submit">Generate Label</Button>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+				<h2 className="text-2xl font-semibold">Generate Shipping Label</h2>
+				<div className="flex flex-col gap-2 w-full">
+					<h3 className="text-lg font-medium">From Address</h3>
+					<AddressFormInputs
+						addressPrefix={addressPrefixes.Enum.from_address}
+						control={form.control}
+					/>
+					<h3 className="text-lg font-medium mt-6">To Address</h3>
+					<AddressFormInputs
+						addressPrefix={addressPrefixes.Enum.to_address}
+						control={form.control}
+					/>
+					<h3 className="text-lg font-medium mt-6">Parcel Details</h3>
+					<ParcelFormInputs control={form.control} />
+				</div>
+				<Button type="submit">Generate Label</Button>
+			</form>
 		</Form>
 	);
 }
