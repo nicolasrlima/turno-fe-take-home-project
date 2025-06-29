@@ -10,7 +10,11 @@ import { Form } from "../ui/form";
 import { ParcelFormInputs } from "../parcel-form-inputs";
 import { generateShippingLabelUrl } from "@/server/shipments/actions";
 
-export function GenerationForm() {
+export interface GenerationFormProps {
+	onGenerate: (labelUrl: string) => void;
+}
+
+export function GenerationForm({ onGenerate }: GenerationFormProps) {
 	const form = useForm<GenerationFormSchema>({
 		defaultValues: {
 			from_address: {
@@ -44,7 +48,14 @@ export function GenerationForm() {
 	});
 
 	const onSubmit = async (values: GenerationFormSchema) => {
-		const labelUrl = await generateShippingLabelUrl(values);
+		try {
+			const labelUrl = await generateShippingLabelUrl(values);
+			onGenerate(labelUrl);
+		} catch {
+			alert(
+				"Failed to generate shipping label. Please try again or contact support.",
+			);
+		}
 	};
 
 	return (

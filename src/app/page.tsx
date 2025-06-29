@@ -1,4 +1,4 @@
-import { GenerationForm } from "@/components/generation-form";
+import { LabelGenerator } from "@/components/label-generator";
 
 export default function Home() {
 	return (
@@ -12,7 +12,7 @@ export default function Home() {
 						Generate USPS shipping labels with ease
 					</p>
 				</div>
-				<GenerationForm />
+				<LabelGenerator />
 			</main>
 		</div>
 	);
