@@ -22,6 +22,14 @@ bun dev
 
 Go to [http://localhost:3000](http://localhost:3000) with your browser to see web app.
 
+## Testing the app
+
+- Populate the fields with a valid data.
+- Click the "Generate Label" button.
+- Wait for the label preview to be generated.
+- Click print.
+- You should be redirected to a printable page.
+
 ## Assumptions
 
 - The API key is valid and has the necessary permissions to generate shipping labels.
@@ -33,3 +41,5 @@ Go to [http://localhost:3000](http://localhost:3000) with your browser to see we
 - Add some degree of automated testing
 - Create a way to validate and pre-populate the address form fields to ensure only US addresses are used.
 - Right now the "Country" field is pre-populated by the client using react hook form default fields, this is far from ideal, so I'd either populate it when calling the API or add a disabled input with US to make this information transparent.
+- Close the printable page as soon as printing is done.
+- Add a loading state to the "Generate Label" button while the label is being generated.
