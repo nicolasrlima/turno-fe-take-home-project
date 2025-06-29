@@ -1,5 +1,5 @@
 "use client";
-import { SubmitErrorHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { AddressFormInputs } from "../address-form-inputs";
 import {
 	addressPrefixes,
