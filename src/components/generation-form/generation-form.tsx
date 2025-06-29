@@ -1,21 +1,54 @@
 "use client";
-import { useForm } from "react-hook-form";
+import { SubmitErrorHandler, useForm } from "react-hook-form";
 import { AddressFormInputs } from "../address-form-inputs";
 import {
 	addressPrefixes,
 	type GenerationFormSchema,
+	generationFormSchema,
 } from "./generation-form.schema";
 import { Button } from "../ui/button";
 import { Form } from "../ui/form";
 import { ParcelFormInputs } from "../parcel-form-inputs";
 import { generateShippingLabelUrl } from "@/server/shipments/actions";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export interface GenerationFormProps {
 	onGenerate: (labelUrl: string) => void;
 }
 
 export function GenerationForm({ onGenerate }: GenerationFormProps) {
-	const form = useForm<GenerationFormSchema>();
+	const form = useForm<GenerationFormSchema>({
+		defaultValues: {
+			to_address: {
+				name: "",
+				street1: "",
+				city: "",
+				state: "",
+				zip: "",
+				country: "US",
+				phone: "",
+				email: "",
+			},
+			from_address: {
+				name: "",
+				street1: "",
+				street2: "",
+				city: "",
+				state: "",
+				zip: "",
+				country: "US",
+				phone: "",
+				email: "",
+			},
+			parcel: {
+				length: 0,
+				width: 0,
+				height: 0,
+				weight: 0,
+			},
+		},
+		resolver: zodResolver(generationFormSchema),
+	});
 
 	const onSubmit = async (values: GenerationFormSchema) => {
 		try {
