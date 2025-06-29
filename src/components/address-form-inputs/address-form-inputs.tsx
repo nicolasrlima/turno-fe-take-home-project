@@ -18,6 +18,7 @@ import type {
 	AddressPrefixes,
 	GenerationFormSchema,
 } from "../generation-form/generation-form.schema";
+import { US_STATES } from "@/constants/us-states";
 
 type AddressFormInputsProps = {
 	control: Control<GenerationFormSchema>;
@@ -58,6 +59,19 @@ export function AddressFormInputs({
 			/>
 			<FormField
 				control={control}
+				name={`${addressPrefix}.street2`}
+				render={({ field }) => (
+					<FormItem>
+						<FormLabel>Street Address 2 (optional)</FormLabel>
+						<FormControl>
+							<Input placeholder="Street 2 Address" {...field} />
+						</FormControl>
+						<FormMessage />
+					</FormItem>
+				)}
+			/>
+			<FormField
+				control={control}
 				name={`${addressPrefix}.city`}
 				render={({ field }) => (
 					<FormItem>
@@ -82,16 +96,15 @@ export function AddressFormInputs({
 									value={field.value}
 									defaultValue={field.value}
 								>
-									<SelectTrigger>
+									<SelectTrigger className="w-full">
 										<SelectValue placeholder="State" />
 									</SelectTrigger>
 									<SelectContent>
-										<SelectItem value="AL">Alabama</SelectItem>
-										<SelectItem value="AK">Alaska</SelectItem>
-										<SelectItem value="AZ">Arizona</SelectItem>
-										<SelectItem value="AR">Arkansas</SelectItem>
-										<SelectItem value="CA">California</SelectItem>
-										{/* Add more states as needed */}
+										{US_STATES.map((state) => (
+											<SelectItem key={state.value} value={state.value}>
+												{state.label}
+											</SelectItem>
+										))}
 									</SelectContent>
 								</Select>
 							</FormControl>

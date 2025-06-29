@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { useRef } from "react";
 
 export default function PrintablePage() {
 	const searchParams = useSearchParams();
